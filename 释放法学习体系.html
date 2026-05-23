@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>释放法学习体系</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&family=Noto+Sans+SC:wght@300;400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1117;
+  --bg2: #131920;
+  --bg3: #1a2330;
+  --gold: #c9a84c;
+  --gold-dim: #8a6f32;
+  --gold-glow: rgba(201,168,76,0.12);
+  --white: #e8e0d0;
+  --white-dim: #9a9080;
+  --red: #c0392b;
+  --red-dim: rgba(192,57,43,0.15);
+  --blue: #2a4a6b;
+  --blue-bright: #4a8ab5;
+  --green: #2d6a4f;
+  --green-bright: #52b788;
+  --border: rgba(201,168,76,0.2);
+  --border-dim: rgba(255,255,255,0.06);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-family: 'EB Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 20px;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--border-dim);
+  margin: 64px 0;
+}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero {
+  text-align: center;
+  padding: 80px 0 64px;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, var(--gold-dim), transparent);
+}
+
+.hero-en {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  color: var(--gold-dim);
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.hero-title span {
+  color: var(--gold);
+}
+
+.hero-sub {
+  font-size: 14px;
+  color: var(--white-dim);
+  letter-spacing: 0.1em;
+}
+
+/* ══════════════════════════════════════
+   THREE WANTS
+══════════════════════════════════════ */
+.wants-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+.want-card {
+  background: var(--bg2);
+  border: 1px solid var(--border-dim);
+  border-radius: 4px;
+  padding: 28px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.want-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.want-card.surface::before { background: linear-gradient(90deg, var(--gold-dim), var(--gold)); }
+.want-card.surface2::before { background: linear-gradient(90deg, var(--gold), var(--gold-dim)); }
+.want-card.deep::before { background: linear-gradient(90deg, #4a2c6b, #7b4fa6); }
+
+.want-tag {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.want-tag.surface { background: var(--gold-glow); color: var(--gold); border: 1px solid var(--gold-dim); }
+.want-tag.deep { background: rgba(123,79,166,0.15); color: #a07fd4; border: 1px solid rgba(123,79,166,0.3); }
+
+.want-zh { font-family: 'Noto Serif SC', serif; font-size: 20px; font-weight: 400; margin-bottom: 6px; }
+.want-en { font-size: 12px; color: var(--white-dim); font-style: italic; font-family: 'EB Garamond', serif; margin-bottom: 12px; }
+.want-desc { font-size: 13px; color: var(--white-dim); line-height: 1.6; }
+
+/* ══════════════════════════════════════
+   EMOTION SCALE
+══════════════════════════════════════ */
+.emotion-layout {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0;
+}
+
+.emotion-bar-track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.emotion-bar {
+  width: 6px;
+  flex: 1;
+  border-radius: 3px;
+  background: linear-gradient(to top,
+    #1a1a2e 0%,
+    #2d1b4e 10%,
+    #3d2060 18%,
+    #5c2d6e 28%,
+    #8b3a3a 40%,
+    #a05020 52%,
+    #2a5a3a 62%,
+    #1e6b5a 75%,
+    #1a5c7a 90%,
+    #c9a84c 100%
+  );
+  position: relative;
+}
+
+.emotion-list { display: flex; flex-direction: column; gap: 0; }
+
+.emotion-row {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  border-left: 1px solid var(--border-dim);
+  transition: background 0.2s;
+}
+
+.emotion-row:hover { background: rgba(255,255,255,0.02); }
+
+.emotion-row.agflap { border-left-color: rgba(139,58,58,0.4); }
+.emotion-row.cap { border-left-color: rgba(42,90,58,0.5); }
+.emotion-row.cap-warn { border-left-color: rgba(42,138,181,0.4); }
+
+.emotion-divider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  margin: 4px 0;
+}
+
+.emotion-divider-line { flex: 1; height: 1px; background: var(--border); }
+.emotion-divider-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.e-pct { font-size: 11px; color: var(--white-dim); font-family: 'EB Garamond', serif; }
+.e-name { font-family: 'Noto Serif SC', serif; font-size: 15px; }
+.e-en { font-size: 11px; color: var(--white-dim); font-style: italic; font-family: 'EB Garamond', serif; }
+.e-note {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.e-note.warn { background: rgba(192,57,43,0.15); color: #e07060; border: 1px solid rgba(192,57,43,0.3); }
+.e-note.good { background: rgba(82,183,136,0.1); color: var(--green-bright); border: 1px solid rgba(82,183,136,0.3); }
+.e-note.caution { background: rgba(74,138,181,0.1); color: var(--blue-bright); border: 1px solid rgba(74,138,181,0.3); }
+
+/* ══════════════════════════════════════
+   SIX STEPS
+══════════════════════════════════════ */
+.steps-cycle {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  position: relative;
+}
+
+.step-card {
+  background: var(--bg2);
+  border: 1px solid var(--border-dim);
+  padding: 24px 20px;
+  position: relative;
+}
+
+.step-card:first-child { border-radius: 4px 0 0 0; }
+.step-card:nth-child(3) { border-radius: 0 4px 0 0; }
+.step-card:nth-child(4) { border-radius: 0 0 0 4px; }
+.step-card:last-child { border-radius: 0 0 4px 0; }
+
+.step-num {
+  font-family: 'EB Garamond', serif;
+  font-size: 40px;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.step-card.engine { border-color: var(--gold-dim); background: linear-gradient(135deg, var(--bg2), rgba(201,168,76,0.05)); }
+.step-card.engine .step-num { color: var(--gold-dim); }
+
+.step-card.safety { border-color: rgba(74,138,181,0.3); background: linear-gradient(135deg, var(--bg2), rgba(74,138,181,0.05)); }
+
+.step-card.confirm { border-color: rgba(82,183,136,0.3); background: linear-gradient(135deg, var(--bg2), rgba(82,183,136,0.05)); }
+
+.step-title { font-family: 'Noto Serif SC', serif; font-size: 15px; font-weight: 400; margin-bottom: 8px; }
+.step-key { font-size: 12px; color: var(--white-dim); line-height: 1.6; }
+.step-key em { color: var(--gold); font-style: normal; }
+
+.cycle-arrow {
+  text-align: center;
+  padding: 12px;
+  font-size: 11px;
+  color: var(--gold-dim);
+  letter-spacing: 0.1em;
+  grid-column: 1 / -1;
+  border: 1px solid var(--border-dim);
+  background: var(--bg2);
+}
+
+/* ══════════════════════════════════════
+   THREE QUESTIONS
+══════════════════════════════════════ */
+.questions-flow {
+  display: grid;
+  grid-template-columns: 1fr 40px 1fr 40px 1fr;
+  align-items: center;
+  gap: 0;
+}
+
+.q-card {
+  background: var(--bg2);
+  border: 1px solid var(--border-dim);
+  border-radius: 4px;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.q-num {
+  font-family: 'EB Garamond', serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--gold-dim);
+  margin-bottom: 16px;
+}
+
+.q-title { font-family: 'Noto Serif SC', serif; font-size: 18px; margin-bottom: 12px; }
+.q-body { font-size: 13px; color: var(--white-dim); line-height: 1.7; }
+.q-body strong { color: var(--gold); font-weight: 400; }
+
+.q-arrow { text-align: center; color: var(--gold-dim); font-size: 20px; }
+
+/* ══════════════════════════════════════
+   MATERIALS TABLE
+══════════════════════════════════════ */
+.materials-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.materials-table th {
+  text-align: left;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 400;
+}
+
+.materials-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-dim);
+  font-size: 13px;
+  vertical-align: top;
+}
+
+.materials-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.mat-name { font-family: 'Noto Serif SC', serif; font-size: 14px; color: var(--white); }
+.mat-when { color: var(--white-dim); }
+.mat-value { color: var(--gold); }
+
+.mat-badge {
+  display: inline-block;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.mat-badge.entry { background: rgba(42,90,58,0.2); color: var(--green-bright); border: 1px solid rgba(82,183,136,0.2); }
+.mat-badge.always { background: var(--gold-glow); color: var(--gold); border: 1px solid var(--gold-dim); }
+.mat-badge.deep { background: rgba(74,138,181,0.1); color: var(--blue-bright); border: 1px solid rgba(74,138,181,0.3); }
+
+.mat-category td {
+  background: rgba(201,168,76,0.06);
+  color: var(--gold-dim);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.mat-link-ext .mat-name { color: var(--blue-bright); }
+.mat-link-ext:hover .mat-name { color: #7ab8d4; }
+
+.mat-link { text-decoration: none; color: inherit; display: block; }
+.mat-link:hover .mat-name { color: var(--gold); }
+.mat-link:hover { background: rgba(201,168,76,0.04); }
+.mat-link::after { content: ' ↗'; font-size: 10px; color: var(--gold-dim); opacity: 0; transition: opacity 0.2s; }
+.mat-link:hover::after { opacity: 1; }
+
+/* ══════════════════════════════════════
+   PITFALLS
+══════════════════════════════════════ */
+.pitfalls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pitfall-card {
+  background: var(--red-dim);
+  border: 1px solid rgba(192,57,43,0.25);
+  border-radius: 4px;
+  padding: 18px 20px;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.pitfall-card.full { grid-column: 1 / -1; }
+
+.pitfall-num {
+  font-family: 'EB Garamond', serif;
+  font-size: 22px;
+  color: rgba(192,57,43,0.5);
+  line-height: 1.2;
+}
+
+.pitfall-title { font-size: 14px; color: #e07060; margin-bottom: 4px; font-family: 'Noto Serif SC', serif; }
+.pitfall-body { font-size: 12px; color: var(--white-dim); line-height: 1.6; }
+.pitfall-body em { color: #e07060; font-style: normal; }
+
+/* ══════════════════════════════════════
+   QUOTES
+══════════════════════════════════════ */
+.quotes-section {
+  border-top: 1px solid var(--border);
+  padding-top: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+}
+
+.quote-block { text-align: center; }
+
+.quote-mark {
+  font-family: 'EB Garamond', serif;
+  font-size: 48px;
+  color: var(--gold-dim);
+  line-height: 0.5;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.quote-text {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.quote-en {
+  font-family: 'EB Garamond', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--gold);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.quote-source {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--gold-dim);
+}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+.footer {
+  text-align: center;
+  padding: 32px 0 0;
+  font-size: 11px;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+  .wants-grid { grid-template-columns: 1fr; }
+  .steps-cycle { grid-template-columns: 1fr 1fr; }
+  .questions-flow { grid-template-columns: 1fr; }
+  .q-arrow { transform: rotate(90deg); }
+  .pitfalls-grid { grid-template-columns: 1fr; }
+  .quotes-section { grid-template-columns: 1fr; }
+  .emotion-layout { grid-template-columns: 24px 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-en">Sedona Method · 释放法学习体系</div>
+    <h1 class="hero-title">波澜不惊 <span>/</span> 自由</h1>
+    <p class="hero-sub">认同无限存在，而非身体 &nbsp;·&nbsp; Imperturbability / Freedom</p>
+  </section>
+
+  <!-- THREE WANTS -->
+  <section>
+    <div class="section-label">三大根本欲望 · Three Wants</div>
+    <div class="wants-grid">
+      <div class="want-card surface">
+        <span class="want-tag surface">表层</span>
+        <div class="want-zh">想要被认同</div>
+        <div class="want-en">Wanting Approval</div>
+        <div class="want-desc">所有日常感受的来源之一。想被接受、被认可、被爱。驱动着大多数人际关系中的情绪反应。</div>
+      </div>
+      <div class="want-card surface2">
+        <span class="want-tag surface">表层</span>
+        <div class="want-zh">想要控制</div>
+        <div class="want-en">Wanting Control</div>
+        <div class="want-desc">所有日常感受的来源之二。想要事情按自己的方式发展。卡住的唯一原因就是想要控制在运作。</div>
+      </div>
+      <div class="want-card deep">
+        <span class="want-tag deep">深层 · 自动浮现</span>
+        <div class="want-zh">想要安全 / 生存</div>
+        <div class="want-en">Wanting Security / Survival</div>
+        <div class="want-desc">对死亡的恐惧。被前两者遮盖。释放足够多的认同与控制后，它会自动浮现。无需刻意寻找。</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- EMOTION SCALE -->
+  <section>
+    <div class="section-label">情绪层级 · AGFLAP → CAP</div>
+    <div class="emotion-layout">
+      <div class="emotion-bar-track">
+        <div class="emotion-bar"></div>
+      </div>
+      <div class="emotion-list">
+        <div class="emotion-row agflap">
+          <div><div class="e-pct">0–5%</div></div>
+          <div><div class="e-name">万念俱灰</div><div class="e-en">Apathy</div></div>
+          <div><span class="e-note warn">⚠ 易误认为平和</span></div>
+        </div>
+        <div class="emotion-row agflap">
+          <div><div class="e-pct">5–10%</div></div>
+          <div><div class="e-name">悲苦</div><div class="e-en">Grief</div></div>
+          <div></div>
+        </div>
+        <div class="emotion-row agflap">
+          <div><div class="e-pct">11–15%</div></div>
+          <div><div class="e-name">恐惧</div><div class="e-en">Fear</div></div>
+          <div></div>
+        </div>
+        <div class="emotion-row agflap">
+          <div><div class="e-pct">16–20%</div></div>
+          <div><div class="e-name">贪求</div><div class="e-en">Lust</div></div>
+          <div></div>
+        </div>
+        <div class="emotion-row agflap">
+          <div><div class="e-pct">21–30%</div></div>
+          <div><div class="e-name">愤怒</div><div class="e-en">Anger</div></div>
+          <div></div>
+        </div>
+        <div class="emotion-row agflap">
+          <div><div class="e-pct">31–40%</div></div>
+          <div><div class="e-name">自尊自傲</div><div class="e-en">Pride</div></div>
+          <div></div>
+        </div>
+        <div class="emotion-divider-row">
+          <div class="emotion-divider-line"></div>
+          <div class="emotion-divider-label">AGFLAP ↑ · ↓ CAP</div>
+          <div class="emotion-divider-line"></div>
+        </div>
+        <div class="emotion-row cap-warn">
+          <div><div class="e-pct">41–65%</div></div>
+          <div><div class="e-name">无畏</div><div class="e-en">Courageousness</div></div>
+          <div><span class="e-note caution">⚠ 继续释放</span></div>
+        </div>
+        <div class="emotion-row cap">
+          <div><div class="e-pct">66–85%</div></div>
+          <div><div class="e-name">接纳</div><div class="e-en">Acceptance</div></div>
+          <div><span class="e-note caution">⚠ 继续释放</span></div>
+        </div>
+        <div class="emotion-row cap">
+          <div><div class="e-pct">86–100%</div></div>
+          <div><div class="e-name">平和</div><div class="e-en">Peace</div></div>
+          <div><span class="e-note good">无限 · 完整 · 永恒</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SIX STEPS -->
+  <section>
+    <div class="section-label">六步骤循环 · Six Steps Cycle</div>
+    <div class="steps-cycle">
+      <div class="step-card engine">
+        <span class="step-num">01</span>
+        <div class="step-title">想要自由超过想要世界</div>
+        <div class="step-key">发动机。不是口号，是体验层面的转向。<em>在体验中发现所有快乐来自内在</em>，才真正完成这一步。达成后不会退转。</div>
+      </div>
+      <div class="step-card">
+        <span class="step-num">02</span>
+        <div class="step-title">做出自由的决定</div>
+        <div class="step-key">决定就是决定，不是祈祷文。<em>如果只决定感觉好，得到后就会停下。决定自由，才不会停。</em></div>
+      </div>
+      <div class="step-card">
+        <span class="step-num">03</span>
+        <div class="step-title">识别并释放想要</div>
+        <div class="step-key">所有感受 → 想要控制 / 想要认同 → 释放。<em>事件是结果，想要才是因。从因上放手。</em></div>
+      </div>
+      <div class="step-card">
+        <span class="step-num">04</span>
+        <div class="step-title">持续释放</div>
+        <div class="step-key">飞机助跑：<em>跑跑停停永远飞不起来</em>。感觉好时继续释放（Release when you're high）。不要停。</div>
+      </div>
+      <div class="step-card safety">
+        <span class="step-num">05</span>
+        <div class="step-title">卡住时：释放对卡住的想要控制</div>
+        <div class="step-key">安全阀。卡住的唯一原因是想要控制在运作。<em>释放最表面的那一个，感觉好一点后再释放下一个。</em></div>
+      </div>
+      <div class="step-card confirm">
+        <span class="step-num">06</span>
+        <div class="step-title">确认愉悦 → 强化第一步</div>
+        <div class="step-key"><em>每次释放必有愉悦涌上</em>，否则可能只是压抑。第六步的愉悦是第一步的燃料，形成正循环。</div>
+      </div>
+      <div class="cycle-arrow">↑ &nbsp; 第六步的愉悦强化第一步的想要自由，循环推进 &nbsp; ↑</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- THREE QUESTIONS -->
+  <section>
+    <div class="section-label">核心操作流程 · 三问句</div>
+    <div class="questions-flow">
+      <div class="q-card">
+        <div class="q-num">STEP ONE</div>
+        <div class="q-title">感受它</div>
+        <div class="q-body">把注意力放到<strong>胸腹部</strong>。不分析，不命名，不讲故事。就是感受那里有什么——紧、重、热、空洞……带着情绪的质地去感受。</div>
+      </div>
+      <div class="q-arrow">→</div>
+      <div class="q-card">
+        <div class="q-num">STEP TWO</div>
+        <div class="q-title">三问</div>
+        <div class="q-body">
+          <strong>能放开吗？</strong><br>
+          <strong>愿意吗？</strong><br>
+          <strong>什么时候？</strong><br><br>
+          答案不重要，不要思考，直接回答。答"不能"也可以。越少思考越容易释放。
+        </div>
+      </div>
+      <div class="q-arrow">→</div>
+      <div class="q-card">
+        <div class="q-num">STEP THREE</div>
+        <div class="q-title">松手</div>
+        <div class="q-body">像松开握着的笔。<strong>是你在抓着它</strong>，不是它抓着你。松手是一个决定，不是一种感觉。然后回到胸腹部，继续下一轮。</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- MATERIALS -->
+  <section>
+    <div class="section-label">学习材料导航 · 遇到问题时看哪里</div>
+    <table class="materials-table">
+      <thead>
+        <tr>
+          <th style="width:36%">材料</th>
+          <th style="width:34%">什么时候看</th>
+          <th>核心价值</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="mat-category"><td colspan="3">▶ &nbsp;视频</td></tr>
+        <tr>
+          <td><a class="mat-link mat-link-ext" href="https://www.bilibili.com/video/BV1uB4y1c7vY/?p=5" target="_blank"><div class="mat-name">1992年圣多纳释放法原始课程<span class="mat-badge always">B站</span></div></a></td>
+          <td class="mat-when">入门必看，配合文字版课程使用</td>
+          <td class="mat-value">海尔原版教学视频，最权威的操作示范</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link mat-link-ext" href="https://www.bilibili.com/video/BV1rJfeBCEHc/" target="_blank"><div class="mat-name">一秒一个<span class="mat-badge always">B站</span></div></a></td>
+          <td class="mat-when">实操练习时，跟着做</td>
+          <td class="mat-value">引导式释放练习</td>
+        </tr>
+        <tr class="mat-category"><td colspan="3">◎ &nbsp;入门必读</td></tr>
+        <tr>
+          <td><a class="mat-link" href="新人先看这里.pdf" target="_blank"><div class="mat-name">新人先看这里<span class="mat-badge entry">第一步</span></div></a></td>
+          <td class="mat-when">最开始，了解全貌</td>
+          <td class="mat-value">入门导引，了解这套资料的全貌</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/情绪表/情绪表-中英文字版.pdf" target="_blank"><div class="mat-name">情绪表<span class="mat-badge always">随时</span></div></a></td>
+          <td class="mat-when">随时，识别当前情绪所在层级</td>
+          <td class="mat-value">导航工具，定位自己在哪里</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/六步骤/六步骤-中文版.pdf" target="_blank"><div class="mat-name">六步骤原始版<span class="mat-badge entry">入门</span></div></a></td>
+          <td class="mat-when">入门期，背熟，反复回看</td>
+          <td class="mat-value">方法骨架，一切的参照系</td>
+        </tr>
+        <tr class="mat-category"><td colspan="3">◈ &nbsp;1992年原始课程（配套视频字幕）</td></tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/1992年原始圣多纳释放法课程中英文字版/1992年原始圣多纳释放法第1课-中英文版.doc" target="_blank"><div class="mat-name">第1课<span class="mat-badge entry">入门</span></div></a></td>
+          <td class="mat-when">入门期，理解基本操作</td>
+          <td class="mat-value">三问句完整示范，海尔引导谢丽尔的实录</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/1992年原始圣多纳释放法课程中英文字版/1992年原始圣多纳释放法第2课-中英文版.doc" target="_blank"><div class="mat-name">第2课</div></a></td>
+          <td class="mat-when">按顺序学习</td>
+          <td class="mat-value">深化操作</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/1992年原始圣多纳释放法课程中英文字版/1992年原始圣多纳释放法第3课-中英文版.doc" target="_blank"><div class="mat-name">第3课</div></a></td>
+          <td class="mat-when">按顺序学习</td>
+          <td class="mat-value">深化操作</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/1992年原始圣多纳释放法课程中英文字版/1992年原始圣多纳释放法第4课-中英文版.doc" target="_blank"><div class="mat-name">第4课</div></a></td>
+          <td class="mat-when">按顺序学习</td>
+          <td class="mat-value">深化操作</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/1992年原始圣多纳释放法课程中英文字版/1992年原始圣多纳释放法第5课-中英文版.doc" target="_blank"><div class="mat-name">第5课</div></a></td>
+          <td class="mat-when">按顺序学习</td>
+          <td class="mat-value">深化操作</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/1992年原始圣多纳释放法课程中英文字版/1992年原始圣多纳释放法第6课-中英文版.doc" target="_blank"><div class="mat-name">第6课</div></a></td>
+          <td class="mat-when">按顺序学习</td>
+          <td class="mat-value">深化操作</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/1992年原始圣多纳释放法课程中英文字版/1992年原始圣多纳释放法第7课-中英文版.doc" target="_blank"><div class="mat-name">第7课</div></a></td>
+          <td class="mat-when">按顺序学习</td>
+          <td class="mat-value">深化操作</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/1992年原始圣多纳释放法课程中英文字版/1992年原始圣多纳释放法第8课-中英文版.doc" target="_blank"><div class="mat-name">第8课</div></a></td>
+          <td class="mat-when">按顺序学习</td>
+          <td class="mat-value">深化操作</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/工作簿/（一曼翻译）92年释放法教学视频配套练习本.pdf" target="_blank"><div class="mat-name">配套练习本（一曼译）</div></a></td>
+          <td class="mat-when">配合视频课程使用</td>
+          <td class="mat-value">课程练习题，巩固每课内容</td>
+        </tr>
+        <tr class="mat-category"><td colspan="3">🌬 &nbsp;风的资料</td></tr>
+        <tr>
+          <td><a class="mat-link" href="风/风最新版聊天记录/自由的风声合集（1−5彩色版）.pdf" target="_blank"><div class="mat-name">自由的风声合集（1-5）</div></a></td>
+          <td class="mat-when">遇到困惑、卡住、想放弃时</td>
+          <td class="mat-value">真实学习过程，困惑与突破的原始记录</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="风/风最新版聊天记录/《风谈六步骤》（9.26网阅版）.pdf" target="_blank"><div class="mat-name">风谈六步骤<span class="mat-badge deep">深化</span></div></a></td>
+          <td class="mat-when">深化期，理解每步的真正含义</td>
+          <td class="mat-value">最深度解读，六步骤与佛法的对应</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="风/风的相关资料/风的相关资料04-风在确证圣多纳原始释放法六步骤后的谈话集.pdf" target="_blank"><div class="mat-name">风确证六步骤后的谈话集</div></a></td>
+          <td class="mat-when">理解突破后的状态</td>
+          <td class="mat-value">风达到自由后的第一手描述</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="风/风的相关资料/风的相关资料07-风对于释放流程的说明.pdf" target="_blank"><div class="mat-name">风对于释放流程的说明</div></a></td>
+          <td class="mat-when">操作不确定时</td>
+          <td class="mat-value">流程细节的澄清</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="风/风的相关资料/风的相关资料08-风谈目标释放.pdf" target="_blank"><div class="mat-name">风谈目标释放</div></a></td>
+          <td class="mat-when">想用释放法实现具体目标时</td>
+          <td class="mat-value">目标释放法的操作方法</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="风/风的相关资料/风的相关资料06-风部分讲解及引导释放系列示范.pdf" target="_blank"><div class="mat-name">风引导释放系列示范</div></a></td>
+          <td class="mat-when">需要引导示范时</td>
+          <td class="mat-value">风的引导释放实录</td>
+        </tr>
+        <tr class="mat-category"><td colspan="3">◉ &nbsp;莱斯特教导</td></tr>
+        <tr>
+          <td><a class="mat-link" href="终极自由之路.pdf" target="_blank"><div class="mat-name">终极自由之路<span class="mat-badge deep">深化</span></div></a></td>
+          <td class="mat-when">理解原理、想知道"为什么"时</td>
+          <td class="mat-value">莱斯特原始教导，方法的根源（390页）</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/莱斯特·利文森教导合集中英文字版[20260105].pdf" target="_blank"><div class="mat-name">莱斯特教导合集</div></a></td>
+          <td class="mat-when">系统学习莱斯特教导时</td>
+          <td class="mat-value">最完整的莱斯特教导汇编</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/方法-莱斯特·利文森 The Way with Lester Levenson 中英文字版[20260105].pdf" target="_blank"><div class="mat-name">方法——莱斯特·利文森</div></a></td>
+          <td class="mat-when">理解方法本质时</td>
+          <td class="mat-value">莱斯特讲解方法的核心录音</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/与莱斯特的炉边漫谈 A Fireside Chat with Lester Levenson 中英文字版[20260105].pdf" target="_blank"><div class="mat-name">与莱斯特的炉边漫谈</div></a></td>
+          <td class="mat-when">想感受莱斯特的气场时</td>
+          <td class="mat-value">莱斯特轻松对话录，亲切易读</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/终极目标第一卷 The Ultimate Goal Volume 1 中英文字版[20260105].pdf" target="_blank"><div class="mat-name">终极目标第一卷</div></a></td>
+          <td class="mat-when">深化期</td>
+          <td class="mat-value">莱斯特对终极目标的深度阐述</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/终极目标第二卷 The Ultimate Goal Vol 2 中英文字版[20260105].pdf" target="_blank"><div class="mat-name">终极目标第二卷</div></a></td>
+          <td class="mat-when">深化期</td>
+          <td class="mat-value">莱斯特对终极目标的深度阐述（续）</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/莱斯特·利文森私教课 Private Lessons with Lester Levenson 中英文字版[20260105].pdf" target="_blank"><div class="mat-name">莱斯特私教课</div></a></td>
+          <td class="mat-when">深化期，想要个人指导感</td>
+          <td class="mat-value">莱斯特一对一教学录音</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/莱斯特·利文森静修会 In Retreat with Lester Levenson 中英文字版[20260105].pdf" target="_blank"><div class="mat-name">莱斯特静修会</div></a></td>
+          <td class="mat-when">深化期</td>
+          <td class="mat-value">静修会录音，密集释放的氛围</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/正确的道路 the Right Path 中英文字版[20250821].pdf" target="_blank"><div class="mat-name">正确的道路</div></a></td>
+          <td class="mat-when">迷失方向时</td>
+          <td class="mat-value">莱斯特对正确修行路径的指引</td>
+        </tr>
+        <tr class="mat-category"><td colspan="3">💌 &nbsp;Kam的信 · 书籍</td></tr>
+        <tr>
+          <td><a class="mat-link" href="Kam的信/Kam的信——抵达自由 中英文字版.pdf" target="_blank"><div class="mat-name">Kam的信——抵达自由</div></a></td>
+          <td class="mat-when">需要激励、怀疑方法时</td>
+          <td class="mat-value">自由状态第一手描述，证明方法有效</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="《决定自由》+《莱斯特自传》+《我和莱斯特》（2022新译版）/中文版/《你好，莱斯特》（2023.3.3电子版）.pdf" target="_blank"><div class="mat-name">《你好，莱斯特》</div></a></td>
+          <td class="mat-when">了解莱斯特其人时</td>
+          <td class="mat-value">决定自由+莱斯特自传+我和莱斯特合集</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="《一个爱的故事_释放从情绪中自由》.pdf" target="_blank"><div class="mat-name">《一个爱的故事》</div></a></td>
+          <td class="mat-when">了解释放法背景时</td>
+          <td class="mat-value">释放从情绪中自由的故事</td>
+        </tr>
+        <tr class="mat-category"><td colspan="3">◎ &nbsp;补充资料</td></tr>
+        <tr>
+          <td><a class="mat-link" href="百年纪念100th Anniversary 01-2 发展释放法Developing the Method.pdf" target="_blank"><div class="mat-name">百年纪念——发展释放法</div></a></td>
+          <td class="mat-when">了解释放法历史时</td>
+          <td class="mat-value">莱斯特百年纪念，释放法的发展历程</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/莱斯特杂谈 Lester 杂谈 中英文字版[20260105].pdf" target="_blank"><div class="mat-name">莱斯特杂谈</div></a></td>
+          <td class="mat-when">随时，轻松阅读</td>
+          <td class="mat-value">莱斯特各类话题的零散谈话</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/莱斯特的存在课程第一卷 Lester's Beingness Sessions Volume 1 中英文字版[20260105].pdf" target="_blank"><div class="mat-name">莱斯特的存在课程第一卷</div></a></td>
+          <td class="mat-when">深化期</td>
+          <td class="mat-value">莱斯特关于"存在"的专题课程</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/与莱斯特的谈话&莱斯特视频3 Talks with Lester 中英文字版[20260105].pdf" target="_blank"><div class="mat-name">与莱斯特的谈话</div></a></td>
+          <td class="mat-when">深化期</td>
+          <td class="mat-value">莱斯特对话录，含视频3字幕</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="莱斯特教导中英文字版/莱斯特 100 周年纪念 Lester 100th Anniversary 中英文字版[20260105].pdf" target="_blank"><div class="mat-name">莱斯特100周年纪念</div></a></td>
+          <td class="mat-when">了解莱斯特其人时</td>
+          <td class="mat-value">百年纪念文集</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="风/风的相关资料/风的相关资料01-自由的风声总集（2020.010.23_2021.07.26 ）.pdf" target="_blank"><div class="mat-name">风的相关资料01——风声总集</div></a></td>
+          <td class="mat-when">想看完整时间线时</td>
+          <td class="mat-value">风从2020.10到2021.07的完整记录</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="风/风的相关资料/风的相关资料02-风的进阶群聊天记录（2020.09.09_2020.10.24 ）.pdf" target="_blank"><div class="mat-name">风的相关资料02——进阶群记录</div></a></td>
+          <td class="mat-when">深化期</td>
+          <td class="mat-value">风在进阶群的早期探索记录</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="风/风的相关资料/风的相关资料03-风的学习群聊天记录（2020.09.23_2020.10.24 ）.pdf" target="_blank"><div class="mat-name">风的相关资料03——学习群记录</div></a></td>
+          <td class="mat-when">深化期</td>
+          <td class="mat-value">风在学习群的早期探索记录</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/情绪表/情绪表-中文版.jpg" target="_blank"><div class="mat-name">情绪表（中文图片版）</div></a></td>
+          <td class="mat-when">手机查看时</td>
+          <td class="mat-value">适合截图保存到手机随时查阅</td>
+        </tr>
+        <tr>
+          <td><a class="mat-link" href="1992年原始圣多纳释放法双语版资料/工作簿/1992年教学课程-练习本.pdf" target="_blank"><div class="mat-name">1992年教学课程练习本（中文）</div></a></td>
+          <td class="mat-when">配合课程使用</td>
+          <td class="mat-value">中文版练习本</td>
+        </tr>
+        <tr>
+          <td><div class="mat-name" style="color:var(--white-dim)">莱斯特音频（4段 mp4）</div></td>
+          <td class="mat-when">深化期，感受莱斯特声音</td>
+          <td class="mat-value" style="color:var(--white-dim)">Happiness is Love / Source of Intelligence — 在《决定自由》引用的莱斯特音频文件夹中</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PITFALLS -->
+  <section>
+    <div class="section-label">常见误区 · 七个陷阱</div>
+    <div class="pitfalls-grid">
+      <div class="pitfall-card">
+        <div class="pitfall-num">1</div>
+        <div>
+          <div class="pitfall-title">把压抑当释放</div>
+          <div class="pitfall-body">感觉"淡了"≠释放。<em>真正的释放：覆盖上面的感觉清晰离开，然后下面有一阵愉悦涌上。</em>没有愉悦，可能只是压抑。</div>
+        </div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-num">2</div>
+        <div>
+          <div class="pitfall-title">把CAP当终点</div>
+          <div class="pitfall-body">处于无畏/接纳/平和时停下来 = <em>"漂浮在垃圾之上"</em>（Kam语）。CAP只是相对好的状态，深处仍有垃圾，必须继续。</div>
+        </div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-num">3</div>
+        <div>
+          <div class="pitfall-title">用脑子分析</div>
+          <div class="pitfall-body">觉察≠释放。分析的时候就没有在释放。<em>促进心智分析的东西没有特别大的意义。</em>必须走完流程。</div>
+        </div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-num">4</div>
+        <div>
+          <div class="pitfall-title">把万念俱灰当平和</div>
+          <div class="pitfall-body">最常见的情绪混淆。万念俱灰（Apathy）是能量最低的状态，<em>平和（Peace）是无限空间、完整、永恒</em>，完全不同。</div>
+        </div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-num">5</div>
+        <div>
+          <div class="pitfall-title">用努力去释放</div>
+          <div class="pitfall-body"><em>Release takes no effort, zero.</em> 努力本身就是想要控制在运作。越努力，越卡住。释放是松手，不是推开。</div>
+        </div>
+      </div>
+      <div class="pitfall-card">
+        <div class="pitfall-num">6</div>
+        <div>
+          <div class="pitfall-title">跑跑停停</div>
+          <div class="pitfall-body">感觉好了就停 = 飞机永远飞不起来。<em>只有一路往前冲，才能加速到飞起来的程度。</em>在高处继续释放（Release when you're high）。</div>
+        </div>
+      </div>
+      <div class="pitfall-card full">
+        <div class="pitfall-num">7</div>
+        <div>
+          <div class="pitfall-title">逃避不舒服的感受</div>
+          <div class="pitfall-body">刷手机、转移注意力、娱乐 = <em>"比毒品还糟的缓和剂"</em>（莱斯特语）。每一次逃避都是浪费时间，让痛苦更进一步。不舒服的感受正是释放的机会。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- QUOTES -->
+  <section class="quotes-section">
+    <div class="quote-block">
+      <span class="quote-mark">"</span>
+      <span class="quote-en">Release takes no effort, zero.</span>
+      <div class="quote-source">—— 风</div>
+    </div>
+    <div class="quote-block">
+      <span class="quote-mark">"</span>
+      <div class="quote-text">每次你感到不安，必是小我的欲望在作祟。把它拉上来，看清它，释放它。</div>
+      <div class="quote-source">—— 莱斯特·利文森</div>
+    </div>
+    <div class="quote-block">
+      <span class="quote-mark">"</span>
+      <div class="quote-text">感受在把自己往外推，你只要不压住它，放手，它就自己出去了。</div>
+      <div class="quote-source">—— 风</div>
+    </div>
+  </section>
+
+  <div class="footer">释放法学习体系 · Sedona Method · 基于1992年原始课程及莱斯特·利文森教导</div>
+
+</div>
+</body>
+</html>
